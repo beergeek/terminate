@@ -1,13 +1,17 @@
 #!/opt/puppetlabs/puppet/bin/ruby
-require 'open3'
+require 'puppet'
+require 'puppet/face'
 require 'json'
 
 params = JSON.parse(STDIN.read)
 
 begin
-  cmd_string = "/opt/puppetlabs/bin/puppet node purge #{params['certname']}"
-  stdout, _stderr, status = Open3.capture3(cmd_string)
-  puts stdout unless status != 0
-rescue => e
-  raise "Could not purge certificate: #{e}"
+  Puppet.initialize_settings
+  # Check this is the Puppet master/MoM
+  raise RuntimeError, 'This can only be run on the Puppet master/MoM' unless Puppet.settings[:server] == Puppet[:certname]
+  # Purge node
+  output = Puppet::Face[:node,:current].purge(params['certname'])
+  puts "Node #{output[0]} purged"
+rescue StandardError => e
+  raise "Could not purge certificate: #{e.message}"
 end

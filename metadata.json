@@ -5,6 +5,8 @@
   "summary": "Task to purge a node from Puppet",
   "license": "Apache-2.0",
   "source": "https://github.com/beergeek/terminate.git",
+  "project_page": "https://github.com/beergeek/terminate",
+  "issues_url": "https://github.com/beergeek/terminate/issues",
   "dependencies": [
 
   ],
