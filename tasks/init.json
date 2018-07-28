@@ -1,0 +1,11 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "A task to purge nodes from Puppet",
+  "parameters": {
+    "certname": {
+      "description": "Certname of the node to purge from Puppet",
+      "type": "String[1]"
+    }
+  }
+}
